@@ -12,15 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('root');
 });
 
 Route::get('root','PagesController@root')->name('root');
 Auth::routes();
 Route::group(['middleware'=>'auth'],function (){
+//    邮箱激活
+    Route::get('email_verification/verify','EmailVerificationController@verify')->name('email_verification.verify');
+//   邮箱手动激活
+    Route::get('email_verification/send', 'EmailVerificationController@send')->name('email_verification.send');
+
+
     Route::get('email_verifiy_notic','PagesController@emailVerifyNotice')->name('email_verifiy_notic');
 //    开始验证邮箱是否激活
     Route::group(['middleware'=>'email_verified'],function (){
+        
         Route::get('test',function (){
             return 'Your email is verified';
         });
