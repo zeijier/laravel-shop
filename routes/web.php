@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('root','PagesController@root');
+Auth::routes();
