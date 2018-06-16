@@ -40,7 +40,7 @@ return [
     */
 
     'debug' => env('APP_DEBUG', false),
-
+    'faker_locale' => 'zh_CN',
     /*
     |--------------------------------------------------------------------------
     | Application URL
