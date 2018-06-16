@@ -28,10 +28,10 @@ Route::group(['middleware'=>'auth'],function (){
 //    开始验证邮箱是否激活
     Route::group(['middleware'=>'email_verified'],function (){
         Route::get('user_addresses','UserAddressesController@index')->name('user_addresses.index');
+        Route::get('user_addresses/create', 'UserAddressesController@create')->name('user_addresses.create');
+        Route::post('user_addresses', 'UserAddressesController@store')->name('user_addresses.store');
 
-        Route::get('test',function (){
-            return 'Your email is verified';
-        });
+
     });
 //    结束
 });
