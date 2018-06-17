@@ -15,7 +15,7 @@ return [
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>LS</b>',
 
     /*
      * Route configuration.
@@ -64,11 +64,11 @@ return [
     ],
 
     /*
-     * Laravel-admin upload setting.
+     *Laravel-Admin 文件上传设置
      */
     'upload' => [
-
-        'disk' => 'admin',
+        // 对应 filesystem.php 中的 disks
+        'disk' => 'public',
 
         'directory' => [
             'image' => 'images',
@@ -100,7 +100,7 @@ return [
         'menu_table' => 'admin_menu',
         'menu_model' => Encore\Admin\Auth\Database\Menu::class,
 
-        // Pivot table for table above.
+        // 多对多关联中间表
         'operation_log_table'    => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
         'role_users_table'       => 'admin_role_users',
