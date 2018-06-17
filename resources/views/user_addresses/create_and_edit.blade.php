@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','新增收货地址')
+@section('title',($address->id?'修改':'新增').'收货地址')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2 class="text-center">
-                        新增收货地址
+                        @if($address->id)修改@else新增  @endif 收货地址
                     </h2>
                 </div>
                 <div class="panel-body">
@@ -25,7 +25,12 @@
                     <!-- 输出后端报错结束 -->
                         <!-- inline-template 代表通过内联方式引入组件 -->
                         <user-addresses-create-and-edit inline-template>
+                            @if($address->id)
+                                <form class="form-horizontal" role="form" method="post" action="{{route('user_addresses.edit',['address'=>$address->id])}}">
+                                    {{method_field('put')}}
+                                @else
                             <form class="form-horizontal" role="form" method="post" action="{{route('user_addresses.store')}}">
+                                @endif
                                 <!-- 引入 csrf token 字段 -->
                             {{ csrf_field() }}
                             <!-- 注意这里多了 @change -->
