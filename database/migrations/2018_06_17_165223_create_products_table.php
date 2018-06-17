@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->boolean('on_sale')->default(true);
             $table->float('rating')->default(5);//商品平均评分
             $table->unsignedInteger('sold_count')->default(0);//销量
-            $table->unsignedInteger('review_count')->default(0);//评价数量
+            $table->unsignedInteger('review_count')->default(0);//评论数
             $table->decimal('price',10,2);
             $table->timestamps();
         });
