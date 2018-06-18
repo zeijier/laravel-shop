@@ -7,8 +7,35 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    public function index(){
-        $products = Product::where('on_sale',true)->paginate(16);
-        return view('products.index',compact('products'));
+    public function index(Request $request){
+//      创建一个查询构造器
+        $builder = Product::where('on_sale',true);
+// 判断是否有提交 search 参数，如果有就赋值给 $search 变量
+        // search 参数用来模糊搜索商品
+        if ($search = $request->input('search','')){
+            $like = '%'.$search.'%';
+            // 模糊搜索商品标题、商品详情、SKU 标题、SKU描述
+            $builder->where(function ($query) use($like){
+               $query->where('title','like',$like)
+                   ->orwhere('description','like',$like)
+                   ->orwhereHas('productsku',function ($query) use($like){
+                       $query->where('title', 'like', $like)
+                           ->orWhere('description', 'like', $like);
+                   });
+            });
+        }
+
+        if ($order = $request->input('order','')){
+            // 是否是以 _asc 或者 _desc 结尾
+            if (preg_match('/^(.+)_(asc|desc)$/',$order,$m)){
+                if (in_array($m[1],['price','sold_count','rating'])){
+// 根据传入的排序值来构造排序参数
+                    $builder->orderBy($m[1], $m[2]);
+                }
+            }
+        }
+        $products = $builder->paginate(16);
+        $filters = ['search'=>$search,'order'=>$order];
+        return view('products.index',compact('products','filters'));
     }
 }
