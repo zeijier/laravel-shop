@@ -13,10 +13,6 @@
 
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
-//        商品详情
-Route::get('products/{product}','ProductsController@show')->name('products.show');
-
-
 
 Route::get('root','PagesController@root')->name('root');
 Auth::routes();
@@ -39,8 +35,14 @@ Route::group(['middleware'=>'auth'],function (){
         Route::put('user_addressses/{address}','UserAddressesController@update')->name('user_addresses.update');
 //        删除
         Route::delete('user_addresses/{address}','UserAddressesController@destroy')->name('user_addresses.destroy');
-
-
+//        收藏商品
+        Route::post('products/{product}/favorite','ProductsController@favor')->name('product.favor');
+//        取消收藏
+        Route::delete('products/{product}/favorite','ProductsController@disfavor')->name('product.disfavor');
+//        我的收藏
+        Route::get('products/favorites','ProductsController@favorites')->name('products.favorites');
     });
 //    结束
 });
+//        商品详情
+Route::get('products/{product}','ProductsController@show')->name('products.show');
