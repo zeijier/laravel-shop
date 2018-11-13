@@ -18,6 +18,4 @@
  *
  */
 
-//Encore\Admin\Form::forget(['map', 'editor']);
-//解除禁用editor
-Encore\Admin\Form::forget(['map']);
+Encore\Admin\Form::forget(['map', 'editor']);
