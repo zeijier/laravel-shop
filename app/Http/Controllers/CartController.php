@@ -29,7 +29,9 @@ class CartController extends Controller
     }
     public function index(Request $request){
         $cartItems = $request->user()->carItem()->with(['productSku.product'])->get();
-        return view('cart.index',compact('cartItems'));
+        //已有收货地址列表
+        $addresses = $request->user()->addresses()->orderBy('last_used_at','desc')->get();
+        return view('cart.index',compact('cartItems','addresses'));
     }
     public function destroy(Request $request,ProductSku $sku){
         $request->user()->carItem()->where('product_sku_id',$sku->id)->delete();

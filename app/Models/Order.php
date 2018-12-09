@@ -88,7 +88,7 @@ class Order extends Model
     }
     public static function findAvailableNo(){
         //订单号流水号前缀
-        $prefix = data('YmdHis');
+        $prefix = date('YmdHis');
         for ($i=0;$i<10;++$i){
             //随机生成6位的数字，填充字符串变成6位。
             $no = $prefix.str_pad(random_int(0,999999),6,'0',STR_PAD_LEFT);
